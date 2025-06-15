@@ -11,7 +11,7 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             /* 图片背景设置 */
-            background-image: url('/resources/wallpaper.jpg');
+            background-image: url('resources/wallpaper.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -97,6 +97,24 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
+        /* 按钮样式 - 新增 */
+        .btn {
+            padding: 10px 20px;
+            background: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #3a5a8f;
+            transform: translateY(-2px);
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .main-container {
@@ -165,7 +183,7 @@
         // 加载文本文件内容
         async function loadTextFile() {
             try {
-                const response = await fetch('/resources/notation.txt');
+                const response = await fetch('resources/notation.txt');
                 if (!response.ok) throw new Error('文件加载失败');
                 const text = await response.text();
                 document.getElementById('file-content').innerHTML = 
