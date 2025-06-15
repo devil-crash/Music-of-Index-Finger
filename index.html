@@ -1,39 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>嵌入p5.js作品</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嵌入p5.js作品（支持摄像头）</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
         }
+        
         .container {
-            width: 640px;
-            height: 480px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
+        
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* 4:3 宽高比 (640x480) */
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+        
         .p5-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
+        }
+        
+        .permission-notice {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 4px;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #0069d9;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <iframe 
-            class="p5-iframe"
-            src="https://editor.p5js.org/cice63445/full/ixOPb-KtO"
-            scrolling="no"
-            allowfullscreen
-            allow="autoplay"
-        ></iframe>
+        <h1>p5.js作品展示</h1>
+        
+        <div class="permission-notice">
+            <p>此内容需要摄像头权限。请点击下方按钮授权，然后刷新页面。</p>
+            <button id="requestPermissionBtn" class="btn">请求摄像头权限</button>
+        </div>
+        
+        <div class="iframe-wrapper">
+            <iframe 
+                id="p5Iframe"
+                class="p5-iframe"
+                src="https://editor.p5js.org/cice63445/full/ixOPb-KtO"
+                allow="camera; microphone"
+                scrolling="no"
+                allowfullscreen
+            ></iframe>
+        </div>
+        
+        <p>如果内容未正常显示，请尝试刷新页面或检查浏览器权限设置。</p>
     </div>
+
+    <script>
+        // 请求摄像头权限的按钮
+        document.getElementById('requestPermissionBtn').addEventListener('click', async () => {
+            try {
+                // 先尝试获取媒体设备权限
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                
+                // 停止所有轨道以释放摄像头
+                stream.getTracks().forEach(track => track.stop());
+                
+                alert('摄像头权限已授予！请刷新页面使嵌入内容生效。');
+                
+                // 刷新iframe以应用新权限
+                document.getElementById('p5Iframe').src += '';
+                
+            } catch (error) {
+                console.error('权限请求失败:', error);
+                alert('权限请求被拒绝: ' + error.message);
+            }
+        });
+        
+        // 检查是否已有权限
+        async function checkPermission() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const hasCameraPermission = devices.some(device => device.kind === 'videoinput' && device.label);
+                
+                if (hasCameraPermission) {
+                    document.querySelector('.permission-notice').style.display = 'none';
+                }
+            } catch (error) {
+                console.log('无法检查设备权限:', error);
+            }
+        }
+        
+        // 页面加载时检查权限
+        window.addEventListener('DOMContentLoaded', checkPermission);
+        
+        // 处理iframe加载问题
+        document.getElementById('p5Iframe').addEventListener('load', function() {
+            console.log('iframe加载完成');
+            // 这里可以添加更多iframe加载后的处理逻辑
+        });
+        
+        document.getElementById('p5Iframe').addEventListener('error', function() {
+            console.error('iframe加载失败');
+            alert('内容加载失败，请检查网络连接或稍后再试');
+        });
+    </script>
 </body>
 </html>
