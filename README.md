@@ -6,11 +6,12 @@
 
 ### 仓库内容
 
-1. 项目期中报告——**/hci_report.pdf**
-2. 项目期末报告——**/人机交互技术期末大报告.pdf**
-3. Github Pages托管页面代码——**/index.html**
+1. 项目期中报告——**/docs/hci_report.pdf**
+2. 项目期末报告——**/docs/人机交互技术期末大报告.pdf**
+3. 用户研究问卷——**/docs/Likert量表用户问卷.pdf**
 4. 图片文本资源——**/resources/**
-5. sketch.js源码——**/proj.js**
+5. Github Pages托管页面代码——**/index.html**
+6. sketch.js源码——**/proj.js**
 
 
 
