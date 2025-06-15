@@ -60,7 +60,7 @@
             min-width: 0;
             background-color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
-            padding: 20px;
+            padding: 10px 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             max-height: 90vh;
@@ -71,12 +71,12 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            padding-bottom: 75%; /* 4:3 宽高比 */
+            padding-bottom: 100%;
             background: #000;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .p5-iframe {
@@ -91,28 +91,40 @@
         /* 权限提示区域 */
         .permission-section {
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 15px;
+            padding: 12px 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
-        /* 按钮样式 - 新增 */
+        /* 按钮样式 */
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #4a6fa5;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         
         .btn:hover {
             background: #3a5a8f;
             transform: translateY(-2px);
+        }
+        
+        /* 文本内容区域调整 */
+        .text-content {
+            line-height: 1.5;
+        }
+        
+        .text-content h2 {
+            margin: 12px 0 8px 0;
+            color: #4a6fa5;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
         }
         
         /* 响应式设计 */
@@ -122,11 +134,16 @@
             }
             
             .iframe-container {
-                padding-bottom: 56.25%; /* 16:9 宽高比，更适合移动设备 */
+                padding-bottom: 100%;
             }
             
             .right-panel {
                 max-height: none;
+                padding: 12px 15px;
+            }
+            
+            .permission-section {
+                padding: 10px 12px;
             }
         }
     </style>
